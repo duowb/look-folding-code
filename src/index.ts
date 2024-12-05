@@ -48,7 +48,9 @@ const { activate, deactivate } = defineExtension(() => {
       }
       const { lines = [] } = cacheFileMap.find(item => item.startLine === line) || {}
       const context = lines.map(lineItem => `${lineContext[lineItem]}\n`).join('')
-      const markdownString = new MarkdownString(`\`\`\`\n${context}\n\`\`\``)
+      const markdownString = new MarkdownString()
+      // TODO: get content code type css,js,ts,json,html...
+      markdownString.appendCodeblock(context, 'javascript')
       return new Hover(markdownString)
     },
   }))
